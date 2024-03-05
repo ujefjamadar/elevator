@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <script src="JS/bootstrap.min.js"></script>
+    <script src="JS/popper.js"></script>
+
+    <style>
+        * {
+            align-items: center;
+            position: relative;
+        }
+
+        .box {
+            /* height: 100px; */
+            border: 2px solid black;
+            width: 50%;
+            /* padding-top: 30%; */
+            /* margin-top: 40px; */
+            align-items: center;
+        }
+
+        .section {
+            height: 150px;
+            width: 94%;
+            padding: 10px;
+            padding-bottom: 10px;
+            margin: 5px;
+            /* gap: 10px; */
+            border: 1px solid black;
+            align-items: center;
+            justify-content: center;
+        }
+
+        p {
+            align-items: center;
+            text-align: center;
+
+            justify-content: center;
+            border: 1px solid black;
+            width: 80px;
+            margin-top: -11px;
+            margin-left: 35%;
+        }
+
+        .arrow-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 3em;
+            color: #333;
+            padding: 10px;
+            width: 30px;
+
+        }
+
+        .arrow {
+            margin-left: 80%;
+            padding: 40px;
+            margin-bottom: 70px;
+        }
+
+        .sectioa {
+            margin-bottom: 70px;
+        }
+
+        .lift {
+            border: 1px solid red;
+            width: auto;
+            height: 100px;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to top, red, transparent);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .lift h5 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <script>
+        let currentLevel = 0;
+
+        function moveElevator(direction) {
+            const elevator = document.querySelector(".lift");
+            const levelButtons = document.querySelectorAll(".arrow-btn");
+
+            if (direction === "up" && currentLevel <= 2) {
+                if (currentLevel === 0) {
+                    
+                    setTimeout(() => {
+                        currentLevel++;
+                        levelButtons.forEach(button => (button.disabled = false));
+
+                        
+                        if (currentLevel === 0) {
+                            document.querySelector(".arrow-down").disabled = true;
+                        } else if (currentLevel === 1) {
+                            document.querySelector(".arrow-up").disabled = false;
+                            document.querySelector(".arrow-down").disabled = false;
+                        } else if (currentLevel === 2) {
+                            document.querySelector(".arrow-up").disabled = true;
+                        }
+
+                        // Reset transition after it completes
+                        elevator.style.transition = '';
+                    }, 5000);
+                } else if (currentLevel === 1) {
+                    setTimeout(() => {
+                        currentLevel++;
+                        console.log(`Moving UP to Level ${currentLevel}`);
+                        // Enable all buttons
+                        levelButtons.forEach(button => (button.disabled = false));
+                        // Disable buttons based on current level
+                        if (currentLevel === 0) {
+                            document.querySelector(".arrow-down").disabled = true;
+                        } else if (currentLevel === 1) {
+                            document.querySelector(".arrow-up").disabled = false;
+                            document.querySelector(".arrow-down").disabled = false;
+                        } else if (currentLevel === 2) {
+                            document.querySelector(".arrow-up").disabled = true;
+                        }
+                        // Reset transition after it completes
+                        elevator.style.transition = '';
+                    }, 1000);
+                }
+                // Update elevator position with smooth transition
+                elevator.style.transition = 'transform 0.5s ease-in-out';
+                elevator.style.transform = `translateY(${currentLevel * -150}px)`;
+            } else if (direction === "down" && currentLevel > 0) {
+                // Elevator moving from Level 2 to Level 1
+                setTimeout(() => {
+                    currentLevel--;
+                    console.log(`Moving DOWN to Level ${currentLevel}`);
+                    // Update elevator position with smooth transition
+                    elevator.style.transition = 'transform 0.5s ease-in-out';
+                    elevator.style.transform = `translateY(${currentLevel * -150}px)`;
+                    // Enable all buttons
+                    levelButtons.forEach(button => (button.disabled = false));
+                    // Disable buttons based on current level
+                    if (currentLevel === 0) {
+                        document.querySelector(".arrow-down").disabled = true;
+                    } else if (currentLevel === 1) {
+                        document.querySelector(".arrow-up").disabled = false;
+                        document.querySelector(".arrow-down").disabled = false;
+                    } else if (currentLevel === 2) {
+                        document.querySelector(".arrow-up").disabled = true;
+                    }
+                    // Reset transition after it completes
+                    setTimeout(() => {
+                        elevator.style.transition = '';
+                    }, 500);
+                }, 500);
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container m-4">
+        <div class="row">
+            <div class="col ms-3">
+                <div class="arrow">
+                    <div class="sectiona">
+                        <div class="arrow-btn arrow-down" onclick="moveElevator('down')">↓</div>
+                    </div>
+                    <div class="sectiona">
+                        <div class="arrow-btn arrow-up" onclick="moveElevator('up')">↑</div>
+                        <div class="arrow-btn arrow-down" onclick="moveElevator('down')">↓</div>
+                    </div>
+                    <div class="sectiona">
+                        <div class="arrow-btn arrow-up" onclick="moveElevator('up')">↑</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col ">
+                <div class="box">
+
+                    <div class="section">
+                        <p>Level 2</p>
+
+                    </div>
+                    <div class="section">
+                        <p>Level 1</p>
+                    </div>
+                    <div class="section">
+                        <p>Level 0/GL</p>
+                        <div class="lift">
+                            <h5 style="border: 1px solid black; ">
+                                <center>elevator</center>
+                            </h5>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

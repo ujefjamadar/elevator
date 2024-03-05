@@ -1,0 +1,38 @@
+body{
+    font-family: century gothic;
+    padding: 0;
+    margin: 0;
+}
+/* .box {
+    border-left: 2px solid black; 
+    color: rgb(0, 0, 0);
+    background-color: white;
+    
+} */
+
+/* .anchor{
+    text-decoration: none;
+    color:rgb(45, 68, 97);
+    font-weight: 500;
+} */
+input{
+    width: 50px;
+    border-radius: 5px;
+
+}
+/* select{
+    width: 140px;
+    height: 40px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+
+}*/
+.anchor{
+    text-decoration: none;
+} 
+
+
+.box{
+    background-color: red;
+    color: white;
+}
